@@ -97,6 +97,7 @@ document.querySelectorAll('.js-add-to-cart')
       addedMessage.classList.add('added-to-cart-visible');
 
       let previousTimeoutId = sentMessageTimeouts[productId];
+      
       if(previousTimeoutId){
         clearTimeout(previousTimeoutId);
       }
