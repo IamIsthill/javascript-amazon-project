@@ -72,7 +72,7 @@ export function updateQuantity(productId, newQuantity) {
     }
   });
 
-  cartItem.quantity = newQuantity;
+  matchingItem.quantity = newQuantity;
 
   saveToStorage();
 }
