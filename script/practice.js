@@ -23,7 +23,6 @@ export function practice () {
   }
 
 function isWeekend(date) {
-
   if(date.format('dddd')=== 'Saturday') {
     return date.format('dddd');
   } else if(date.format('dddd')=== 'Sunday'){
