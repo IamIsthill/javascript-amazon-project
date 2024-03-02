@@ -28,28 +28,15 @@ export function getDeliveryOption(deliveryOptionId) {
 }
 
 export function calculateDeliveryDate(deliveryOption) {
-  let today = dayjs();
+  let remainingDays = deliveryOption.deliveryDays;
+  let deliveryDate = dayjs();
 
-  let days = Number(deliveryOption.deliveryDays);
-
-  let newDays = 0;
-
-  
-
-  while(days !== 0) {
-    if(isWeekend(today)){
-      days--;
+  while(remainingDays > 0) {
+    deliveryDate = deliveryDate.add(1, 'day')
+    if(!isWeekend(deliveryDate)) {
+      remainingDays--;
     }
-    newDays++;
-    today = today.add(1, 'day');
   }
-
-  let deliveryDate = today.add(newDays, 'days');
-
-
-  /*let deliveryDate = today.add(
-    deliveryOption.deliveryDays, 'days'
-  );*/
 
   let dateString = deliveryDate.format(
     'dddd, MMMM D'
@@ -57,6 +44,7 @@ export function calculateDeliveryDate(deliveryOption) {
   return dateString;
 }
 
-function isWeekend(date) {
-  return date.day() === 0 || date.day() === 6; 
+function isWeekend(dates) {
+  let date = dates.format('dddd');
+  return date === 'Sunday'|| date === 'Saturday';
 }
