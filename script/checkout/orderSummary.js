@@ -12,13 +12,13 @@ import {deliveryOptions,
   calculateDeliveryDate} from '../../data/deliveryOption.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 
-
+renderOrderSummary();
 export function renderOrderSummary() {
   updateCartQuantity();
   let cartSummaryHTML = '';
 
   cart.forEach((cartItem)=>{
-    let productId = cartItem.productId;
+    let {productId} = cartItem;
 
     let matchingProduct = getProduct(productId);  
 
@@ -41,8 +41,8 @@ export function renderOrderSummary() {
           src="${matchingProduct.image}">
 
         <div class="cart-item-details">
-          <div class="product-name">
-          ${matchingProduct.name}
+          <div class="product-name js-product-name-${matchingProduct.id}">
+            ${matchingProduct.name}
           </div>
           <div class="product-price">
           ${formatCurrency(matchingProduct.priceCents)}
@@ -108,7 +108,10 @@ export function renderOrderSummary() {
   }
 
 
-  document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+  let orderSummary = document.querySelector('.js-order-summary');
+  if(orderSummary) {
+    orderSummary.innerHTML = cartSummaryHTML;
+  }
 
   document.querySelectorAll('.js-delete-link')
     .forEach((link) => {
@@ -171,4 +174,6 @@ export function renderOrderSummary() {
         renderPaymentSummary();
       });
   });
+
+  
 }
